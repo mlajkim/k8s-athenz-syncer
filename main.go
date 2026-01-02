@@ -108,7 +108,7 @@ func main() {
 	caCert := flag.String("cacert", "", "Athenz CA certificate file")
 	zmsURL := flag.String("zms-url", "", "Athenz ZMS API URL")
 	updateCron := flag.String("update-cron", "1m0s", "Update cron sleep time")
-	athenzContactTimeCmNs := flag.String("athenz-contact-time-cm-ns", "kube-yahoo", "Namespace of ConfigMap to record the latest time that the Update Cron contacted Athenz")
+	athenzContactTimeCmNs := flag.String("athenz-contact-time-cm-ns", "kube-k8s-athenz-syncer", "Namespace of ConfigMap to record the latest time that the Update Cron contacted Athenz")
 	athenzContactTimeCmName := flag.String("athenz-contact-time-cm-name", "athenzcall-config", "Name of ConfigMap to record the latest time that the Update Cron contacted Athenz")
 	athenzContactTimeCmKey := flag.String("athenz-contact-time-cm-key", "latest_contact", "Key of ConfigMap to record the latest time that the Update Cron contacted Athenz")
 	resyncCron := flag.String("resync-cron", "1h0m0s", "Cron full resync sleep time")
