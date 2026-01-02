@@ -60,7 +60,7 @@ func newCron() *Cron {
 	}})
 	cr := cr.NewCRUtil(athenzclientset, informer)
 	cm := &AthenzContactTimeConfigMap{
-		Namespace: "kube-yahoo",
+		Namespace: "kube-k8s-athenz-syncer",
 		Name:      "athenzcall-config",
 		Key:       "latest_contact",
 	}

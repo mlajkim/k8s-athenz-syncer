@@ -50,7 +50,7 @@ func newController() *Controller {
 	zmsclient := zms.NewClient("https://zms.athenz.com", &http.Transport{})
 	util := util.NewUtil("admin.domain", []string{"kube-system", "kube-public", "kube-test"}, []string{"acceptance-test"}, false)
 	cm := &cron.AthenzContactTimeConfigMap{
-		Namespace: "kube-yahoo",
+		Namespace: "kube-k8s-athenz-syncer",
 		Name:      "athenzcall-config",
 		Key:       "latest_contact",
 	}
