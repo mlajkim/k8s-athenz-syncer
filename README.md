@@ -150,17 +150,21 @@ kubectl create serviceaccount k8s-athenz-syncer -n kube-k8s-athenz-syncer
 ```
 
 #### ClusterRole and ClusterRoleBinding
+
 This controller requires RBAC to create, update, delete, watch and list all Athenzdomains Custom Resources in the cluster. It also has a watch and list on namespaces in order to know which domains to look up from Athenz.
 
 **NOTE:** If you are deploying to a non-default namespace, make sure to update the `k8s/clusterrolebinding.yaml` subject namespace accordingly.
-```
+
+```sh
 kubectl apply -f k8s/clusterrole.yaml
 kubectl apply -f k8s/clusterrolebinding.yaml
 ```
 
 #### Deployment
+
 The deployment for the controller contains three containers: sia init, sia refresh, and the controller itself. Build a docker image using the Dockerfile and publish to a docker registry. Make sure to replace the docker images inside of this spec to the ones which are published in your organization. Also, replace the zms url with your instance. Run the following command in order to deploy:
-```
+
+```sh
 kubectl apply -f k8s/deployment.yaml
 ```
 
