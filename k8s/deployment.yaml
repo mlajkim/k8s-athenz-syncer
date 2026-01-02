@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: k8s-athenz-syncer
-  namespace: kube-yahoo
+  namespace: kube-k8s-athenz-syncer
   labels:
     app: k8s-athenz-syncer
 spec:
