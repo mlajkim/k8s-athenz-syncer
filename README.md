@@ -181,7 +181,7 @@ K8s-athenz-syncer has a variety of parameters that can be configured, they are g
 | admin-domain                | Admin domain that can be specified in order to fetch admin domains from Athenz         |                                                  |
 | athenz-contact-time-cm-key  | Key of ConfigMap to record the latest time that the Update Cron contacted Athenz       | latest_contact                                   |
 | athenz-contact-time-cm-name | Name of ConfigMap to record the latest time that the Update Cron contacted Athenz      | athenzcall-config                                |
-| athenz-contact-time-cm-ns   | Namespace of ConfigMap to record the latest time that the Update Cron contacted Athenz | kube-yahoo                                       |
+| athenz-contact-time-cm-ns   | Namespace of ConfigMap to record the latest time that the Update Cron contacted Athenz | kube-k8s-athenz-syncer                                       |
 | auth-header                 | Authentication header field                                                            |                                                  |
 | cacert                      | Path to X.509 ca certificate file to use for zms authentication                        |                                                  |
 | cert                        | Path to X.509 certificate file to use for zms authentication                           | /var/run/athenz/service.cert.pem                 |
