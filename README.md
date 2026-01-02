@@ -4,11 +4,13 @@ K8s-athenz-syncer is a controller that synchronizes the [Athenz](https://athenz.
 into corresponding Kubernetes [AthenzDomain](https://github.com/yahoo/k8s-athenz-istio-auth/tree/master/pkg) custom resources.
 
 ### Architecture
+
 <p align="center">
   <img src=images/K8s-Athenz-Syncer-Controller.png>
 </p>
 
 ## Table of Contents
+
 1. [Background](#background)
 2. [Install](#install)
 3. [Configuration](#configuration)
@@ -27,26 +29,27 @@ defined within each domain are used to express access control rules to Kubernete
 services, ingresses, etc. associated with the namespace.
 
 ***
+
 #### Kubernetes namespace to Athenz domain name mapping
 A kubernetes namespace is mapped to an Athenz domain with the following pattern:
 
-| Kubernetes | Athenz |
-| ---------- | ------ |
-| **Namespace** | **Domain** |
-| {user-namespace} | {user-managed-domain} |
-| {system-namespace} | {special-cluster-admin-managed-domain} |
-| - dashes '-' in namespace replaced with '.' in domain | |
-| - double dashes '--' in namespace replaced with '-' in domain | |
-| *e.g.* sports-frontend| sports.frontend |
-| **Resources** | **Resources** |
-| - {namespace-scoped}| {user-managed-domain-prefixed} |
-| *e.g.* sports-frontend/fantasy-prod-deployment| sports.frontend:fantasy-dashboard|
-| - {cluster-scoped}| {special-admin-domain-prefixed} |
-| **Service** | **Service** |
-| *e.g.* sports-frontend/fantasy-dashboard| sports.frontend::fantasy-dashboard|
-| **RBAC** - Role and RoleBindings| Roles and Policies |
-| - {Role.rule} | {Policy.assertion} |
-| - {RoleBinding.Subjects} | {Role} |
+| Kubernetes                                                    | Athenz                                 |
+|---------------------------------------------------------------|----------------------------------------|
+| **Namespace**                                                 | **Domain**                             |
+| {user-namespace}                                              | {user-managed-domain}                  |
+| {system-namespace}                                            | {special-cluster-admin-managed-domain} |
+| - dashes '-' in namespace replaced with '.' in domain         |                                        |
+| - double dashes '--' in namespace replaced with '-' in domain |                                        |
+| *e.g.* sports-frontend                                        | sports.frontend                        |
+| **Resources**                                                 | **Resources**                          |
+| - {namespace-scoped}                                          | {user-managed-domain-prefixed}         |
+| *e.g.* sports-frontend/fantasy-prod-deployment                | sports.frontend:fantasy-dashboard      |
+| - {cluster-scoped}                                            | {special-admin-domain-prefixed}        |
+| **Service**                                                   | **Service**                            |
+| *e.g.* sports-frontend/fantasy-dashboard                      | sports.frontend::fantasy-dashboard     |
+| **RBAC** - Role and RoleBindings                              | Roles and Policies                     |
+| - {Role.rule}                                                 | {Policy.assertion}                     |
+| - {RoleBinding.Subjects}                                      | {Role}                                 |
 
 Note: Kubernetes system namespaces such as "kube-system", "istio-system" are mapped to an equivalent Athenz domain
 with the format: `<cluster-admin-domain>.<cluster-namespace>`
@@ -173,31 +176,31 @@ kubectl apply -f k8s/deployment.yaml
 ## Configuration
 K8s-athenz-syncer has a variety of parameters that can be configured, they are given below.
 
-|Parameters                 |Description                                                                           |Default                                         |
-|:--------------------------|:-------------------------------------------------------------------------------------|:-----------------------------------------------|
-|admin-domain               |Admin domain that can be specified in order to fetch admin domains from Athenz        |                                                |
-|athenz-contact-time-cm-key |Key of ConfigMap to record the latest time that the Update Cron contacted Athenz      |latest_contact                                  |
-|athenz-contact-time-cm-name|Name of ConfigMap to record the latest time that the Update Cron contacted Athenz     |athenzcall-config                               |
-|athenz-contact-time-cm-ns  |Namespace of ConfigMap to record the latest time that the Update Cron contacted Athenz|kube-yahoo                                      |
-|auth-header                |Authentication header field                                                           |                                                |
-|cacert                     |Path to X.509 ca certificate file to use for zms authentication                       |                                                |
-|cert                       |Path to X.509 certificate file to use for zms authentication                          |/var/run/athenz/service.cert.pem                |
-|disable-keep-alives        |Disable keep alive for zms client                                                     |true                                            |
-|identity-key               |Directory containing private keys for service identity                                |/var/run/keys/identity                          |
-|inClusterConfig            |Set to true to use in cluster config                                                  |true                                            |
-|key                        |Path to private key file for zms authentication                                       |/var/run/athenz/service.key.pem                 |
-|kubeconfig                 |Absolute path to the kubeconfig file                                                  |/root/.kube/config                              |
-|log-location               |Log location                                                                          |/var/log/k8s-athenz-syncer/k8s-athenz-syncer.log|
-|log-mode                   |Logger mode                                                                           |INFO                                            |
-|ntoken-expiry              |Custom nToken expiration duration                                                     |1h0m0s                                          |
-|queue-delay-interval       |Delay interval time for workqueue                                                     |250ms                                           |
-|resync-cron                |Sleep interval for controller full resync cron                                        |1h0m0s                                          |
-|secret-name                |Secret name that contains private key                                                 |k8s-athenz-syncer                               |
-|service-domain             |Athenz domain that contains k8s-athenz-syncer                                         |                                                |
-|service-name               |Service name                                                                          |k8s-athenz-syncer                               |
-|system-namespaces          |A list of cluster system namespaces that you hope the controller to fetch from Athenz |                                                |
-|update-cron                |Sleep interval for controller update cron                                             |1m0s                                            |
-|zms-url                    |Athenz full zms url including api path                                                |                                                |
+| Parameters                  | Description                                                                            | Default                                          |
+|:----------------------------|:---------------------------------------------------------------------------------------|:-------------------------------------------------|
+| admin-domain                | Admin domain that can be specified in order to fetch admin domains from Athenz         |                                                  |
+| athenz-contact-time-cm-key  | Key of ConfigMap to record the latest time that the Update Cron contacted Athenz       | latest_contact                                   |
+| athenz-contact-time-cm-name | Name of ConfigMap to record the latest time that the Update Cron contacted Athenz      | athenzcall-config                                |
+| athenz-contact-time-cm-ns   | Namespace of ConfigMap to record the latest time that the Update Cron contacted Athenz | kube-yahoo                                       |
+| auth-header                 | Authentication header field                                                            |                                                  |
+| cacert                      | Path to X.509 ca certificate file to use for zms authentication                        |                                                  |
+| cert                        | Path to X.509 certificate file to use for zms authentication                           | /var/run/athenz/service.cert.pem                 |
+| disable-keep-alives         | Disable keep alive for zms client                                                      | true                                             |
+| identity-key                | Directory containing private keys for service identity                                 | /var/run/keys/identity                           |
+| inClusterConfig             | Set to true to use in cluster config                                                   | true                                             |
+| key                         | Path to private key file for zms authentication                                        | /var/run/athenz/service.key.pem                  |
+| kubeconfig                  | Absolute path to the kubeconfig file                                                   | /root/.kube/config                               |
+| log-location                | Log location                                                                           | /var/log/k8s-athenz-syncer/k8s-athenz-syncer.log |
+| log-mode                    | Logger mode                                                                            | INFO                                             |
+| ntoken-expiry               | Custom nToken expiration duration                                                      | 1h0m0s                                           |
+| queue-delay-interval        | Delay interval time for workqueue                                                      | 250ms                                            |
+| resync-cron                 | Sleep interval for controller full resync cron                                         | 1h0m0s                                           |
+| secret-name                 | Secret name that contains private key                                                  | k8s-athenz-syncer                                |
+| service-domain              | Athenz domain that contains k8s-athenz-syncer                                          |                                                  |
+| service-name                | Service name                                                                           | k8s-athenz-syncer                                |
+| system-namespaces           | A list of cluster system namespaces that you hope the controller to fetch from Athenz  |                                                  |
+| update-cron                 | Sleep interval for controller update cron                                              | 1m0s                                             |
+| zms-url                     | Athenz full zms url including api path                                                 |                                                  |
 
 ## Usage
 Once the controller is up and running, the controller will create Kubernetes AthenzDomains Custom Resources in the cluster accordingly. Users and Applications can consume those AthenzDomains CR to get security policy information for access control checks.
