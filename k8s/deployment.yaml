@@ -170,5 +170,5 @@ spec:
           driver: athenz.kubernetes.io/athenz-volume-driver
           readOnly: true
       - name: identity-key
-        secret: 
+        secret:
           secretName: k8s-athenz-syncer
