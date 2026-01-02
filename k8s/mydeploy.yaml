@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: k8s-athenz-syncer
+  namespace: kube-k8s-athenz-syncer
+  labels:
+    app: k8s-athenz-syncer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: k8s-athenz-syncer
+  strategy:
+    rollingUpdate:
+      maxSurge: 50%
+      maxUnavailable: 0%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: k8s-athenz-syncer
+    spec:
+      containers:
+      - name: main
+        image: local/k8s-athenz-syncer
+        imagePullPolicy: IfNotPresent
+        resources:
+          limits:
+            cpu: 1
+            memory: 1Gi
+          requests:
+            cpu: 1
+            memory: 1Gi
+        args:
+        - --zms-url=https://zms.url.com/zms/v1
+        volumeMounts:
+        - name: tls-certs
+          mountPath: /var/run/athenz
+          readOnly: true
+        - name: identity-key
+          mountPath: /var/run/keys/identity
+          readOnly: true
+      priorityClassName: cluster-component
+      serviceAccountName: k8s-athenz-syncer
+      volumes:
+      - name: tls-certs
+        emptyDir: {}
+      - name: sia-identity
+        flexVolume:
+          driver: athenz.kubernetes.io/athenz-volume-driver
+          readOnly: true
+      - name: identity-key
+        secret:
+          secretName: k8s-athenz-syncer
