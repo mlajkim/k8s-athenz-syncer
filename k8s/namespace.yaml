@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  creationTimestamp: null
+  name: hekube-k8s-athenz-syncer
+spec: {}
+status: {}

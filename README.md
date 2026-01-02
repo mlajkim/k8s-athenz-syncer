@@ -123,14 +123,30 @@ The Athenz Domain custom resource definition must be first created in order for 
 kubectl apply -f k8s/athenzdomain.yaml
 ```
 
-#### Service Account
-In order to tell SIA which service to provide an X.509 certificate to, a service account must be present. This is required for the controller to authenticate with ZMS for api calls. Run the following command:
+### Namespace
+
+The controller must be deployed in a specific namespace. You can either use an existing namespace or create a new one. For this instruction, we will use the namespace `kube-k8s-athenz-syncer`. Run the following command:
+
+```sh
+kubectl apply -f k8s/namespace.yaml
 ```
+
+```sh
+kubectl create namespace kube-k8s-athenz-syncer
+```
+
+#### Service Account
+
+In order to tell SIA which service to provide an X.509 certificate to, a service account must be present. This is required for the controller to authenticate with ZMS for api calls. Run the following command:
+
+```sh
 kubectl apply -f k8s/serviceaccount.yaml
 ```
+
 or
-```
-kubectl create serviceaccount k8s-athenz-syncer
+
+```sh
+kubectl create serviceaccount k8s-athenz-syncer -n kube-k8s-athenz-syncer
 ```
 
 #### ClusterRole and ClusterRoleBinding
