@@ -119,7 +119,8 @@ Configuration files which must be applied to run k8s-athenz-syncer which can be 
 
 #### Athenz Domain Custom Resource Definition
 The Athenz Domain custom resource definition must be first created in order for the controller to sync the custom resource. Run the following command:
-```
+
+```sh
 kubectl apply -f k8s/athenzdomain.yaml
 ```
 
