@@ -62,7 +62,8 @@ The controller also runs a cron that periodically fetches the list of Athenz dom
 interval and then fetches the signed contents for each domain and stores them as the AthenzDomain Custom Resource in the cluster in order to keep all policies in local cache updated. There is also a full resync cron that adds all the watched namespaces to the controller work queue so that all of Kubernetes AthenzDomains Custom Resources are resynced after a full resync interval.
 
 #### Example AthenzDomain CR
-```
+
+```yaml
 apiVersion: v1
 items:
 - apiVersion: athenz.io/v1
