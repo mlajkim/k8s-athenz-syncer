@@ -81,7 +81,7 @@ func (c *CRUtil) updateCR(ctx context.Context, object *athenz_domain.AthenzDomai
 	eql := reflect.DeepEqual(oldObjCopy, newObjCopy)
 	statusEql := reflect.DeepEqual(object.Status, newCR.Status)
 	if eql && statusEql {
-		log.Info("AthenzDomain CR is up to date, skipping CR update.")
+		log.Info("AthenzDomain CR is up to date, skipping CR update.", "Domain", newCR.Name)
 		return nil, nil
 	}
 	resourceVersion := object.ResourceVersion
